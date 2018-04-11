@@ -4,7 +4,7 @@ var WINDOW_HEIGHT = 375;
 var BACKGROUND_COLOR = color(64, 159, 232);
 var RIGHT_ARROW = '39';
 
-//Building testBuilding = new Building(0, random(10, 20), 100, color(2, 10, 300));
+//Glacier testGlacier = new Glacier(0, random(10, 20), 100, color(2, 10, 300));
 //TODO: Create an instance of your Skyline object
 Skyline testSkyline = new Skyline(185, -5, (color(161, 193, 209)));
 Skyline secondSkyline = new Skyline(250, -3.5, (color(112, 138, 150)));
@@ -50,7 +50,7 @@ void setup() {
 // called repeatedly
 void draw() {
   background(BACKGROUND_COLOR); //needed in the draw function to "clear" the screen between updates
-  //testBuilding.drawAndUpdate();
+  //testGlacier.drawAndUpdate();
   //TODO: Call drawSkyline on your Skyline object
   image(backgroundImage, 0, 0);
   testSun.drawSun();
@@ -210,33 +210,33 @@ class Cloud {
 }
 
 /**
- * Represents one layer of a city skyline, which is a collection of buildings
+ * Represents one layer of a city skyline, which is a collection of glaciers
  * that all move at the same speed.
  */
 class Skyline {
-  ArrayList < Building > buildingList;
+  ArrayList < Glacier > glacierList;
   var xPosition;
   var bw;
-  var buildingHeight;
+  var glacierHeight;
   var speed;
-  var buildingColor;
+  var glacierColor;
 
 
   /**
-   * Constructs a SkyLine with enough buildings to fill the screen
+   * Constructs a SkyLine with enough glaciers to fill the screen
    */
   Skyline(float bh, float s, float bC) {
-    buildingList = new ArrayList < Building > ();
+    glacierList = new ArrayList < Glacier > ();
     xPosition = 0;
     bw = 200;
-    buildingHeight = bh;
+    glacierHeight = bh;
     speed = s;
-    buildingColor = bC
-    fillSkyline(); //when a Skyline is created it automatically has enough buildings to fill the screen
+    glacierColor = bC
+    fillSkyline(); //when a Skyline is created it automatically has enough glaciers to fill the screen
   }
 
   void moveSkyline() {
-    //TODO: update and draw the skyline, add buildings as buildings leave the screen
+    //TODO: update and draw the skyline, add glaciers as glaciers leave the screen
     drawSkyline();
     updateSkyline(speed);
   }
@@ -245,26 +245,26 @@ class Skyline {
    * Draws the skyline, placing it on the screen
    */
   void drawSkyline() {
-    //TODO: loop through buildingList and draw each Building
+    //TODO: loop through glacierList and draw each Glacier
     stroke();
-    for (var i = 0; i < buildingList.size(); i++) {
-      var randomBuilding = buildingList.get(i);
-      randomBuilding.drawBuilding();
+    for (var i = 0; i < glacierList.size(); i++) {
+      var randomGlacier = glacierList.get(i);
+      randomGlacier.drawGlacier();
     }
 
   }
 
   /**
-   * Updates the position of each Building in the SkyLine
+   * Updates the position of each Glacier in the SkyLine
    */
   void updateSkyline(var skylineSpeed) {
-    //TODO:loop through buildingList and update each Building
-    for (var i = 0; i < buildingList.size(); i++) {
-      var randomBuilding = buildingList.get(i);
-      randomBuilding.update(skylineSpeed);
-      if (randomBuilding.getX() + randomBuilding.getWidth() < 0) {
-        addBuilding();
-        buildingList.remove(i);
+    //TODO:loop through glacierList and update each Glacier
+    for (var i = 0; i < glacierList.size(); i++) {
+      var randomGlacier = glacierList.get(i);
+      randomGlacier.update(skylineSpeed);
+      if (randomGlacier.getX() + randomGlacier.getWidth() < 0) {
+        addGlacier();
+        glacierList.remove(i);
         i--;
       }
     }
@@ -273,73 +273,73 @@ class Skyline {
   }
 
   /**
-   * Adds a building of random building width and then updates
-   * the x position to be the right corner of the building in order
-   * to have the next building not overlap
+   * Adds a glacier of random glacier width and then updates
+   * the x position to be the right corner of the glacier in order
+   * to have the next glacier not overlap
    */
-  void addBuilding() {
-    var randomBuildingWidth = random(40, 80);
-    Building currentBuilding = new Building(xPosition, randomBuildingWidth, buildingHeight, buildingColor);
-    buildingList.add(currentBuilding);
-    xPosition += randomBuildingWidth;
+  void addGlacier() {
+    var randomGlacierWidth = random(40, 80);
+    Glacier currentGlacier = new Glacier(xPosition, randomGlacierWidth, glacierHeight, glacierColor);
+    glacierList.add(currentGlacier);
+    xPosition += randomGlacierWidth;
   }
 
 
   void fillSkyline() {
-    //TODO:add enough buildings to fill the screen
+    //TODO:add enough glaciers to fill the screen
     // hint - use xPosition and WINDOW_WIDTH to figure out when you have
-    //        enough buildings
+    //        enough glaciers
     while (xPosition - 500 < WINDOW_WIDTH) {
-      addBuilding();
+      addGlacier();
     }
   }
 }
 
 /**
- * Represents a building, providing a way to place a building and move
+ * Represents a glacier, providing a way to place a glacier and move
  * it across the screen.
  */
-class Building {
+class Glacier {
 
-  var xPosition, yPosition, buildingHeight, buildingWidth;
-  var buildingColor;
+  var xPosition, yPosition, glacierHeight, glacierWidth;
+  var glacierColor;
 
   /**
-   * Constructs a Building object
-   * @param xPos - the x position of the top left corner of the building
-   * @param bw - the building's width
+   * Constructs a Glacier object
+   * @param xPos - the x position of the top left corner of the glacier
+   * @param bw - the glacier's width
    */
-  Building(var xPos,
+  Glacier(var xPos,
     var bw,
       var bH, bC) {
-    buildingHeight = random(50, bH);
-    buildingWidth = bw;
+    glacierHeight = random(50, bH);
+    glacierWidth = bw;
     xPosition = xPos;
-    buildingColor = bC;
+    glacierColor = bC;
   }
 
   void drawAndUpdate() {
-    drawBuilding();
+    drawGlacier();
     update(5);
   }
 
   /**
-   * Draws a building always attached to the bottom of the screen
+   * Draws a glacier always attached to the bottom of the screen
    */
-  void drawBuilding() {
+  void drawGlacier() {
     stroke();
-    fill(buildingColor);
-    rect(xPosition, WINDOW_HEIGHT - buildingHeight, buildingWidth, buildingHeight);
+    fill(glacierColor);
+    rect(xPosition, WINDOW_HEIGHT - glacierHeight, glacierWidth, glacierHeight);
     noStroke();
     fill(211, 211, 211);
     var winY = 0
     for (var i = 0; i < 5; i++) {
       var winX = 0
       for (var j = 0; j < 4; j++) {
-        rect(xPosition + 10 + winX, WINDOW_HEIGHT - buildingHeight + 10 + winY, buildingWidth / 8, buildingHeight / 7);
-        winX = winX + buildingWidth / 6 + 1;
+        rect(xPosition + 10 + winX, WINDOW_HEIGHT - glacierHeight + 10 + winY, glacierWidth / 8, glacierHeight / 7);
+        winX = winX + glacierWidth / 6 + 1;
       }
-      winY = winY + buildingHeight / 5 + 1;
+      winY = winY + glacierHeight / 5 + 1;
 
     }
   }
@@ -349,12 +349,12 @@ class Building {
   }
 
   int getWidth() {
-    return buildingWidth;
+    return glacierWidth;
   }
 
   /**
-   * Updates the x position of the building
-   * @param speed - the speed at which the building updates
+   * Updates the x position of the glacier
+   * @param speed - the speed at which the glacier updates
    */
   void update(var speed) {
     xPosition += speed;
