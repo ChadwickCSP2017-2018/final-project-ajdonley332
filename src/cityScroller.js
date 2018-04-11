@@ -4,7 +4,7 @@ var WINDOW_HEIGHT = 375;
 var BACKGROUND_COLOR = color(64, 159, 232);
 var RIGHT_ARROW = '39';
 
-//Tree testTree = new Tree(0, random(10, 20), 100, color(2, 10, 300));
+//Building testBuilding = new Building(0, random(10, 20), 100, color(2, 10, 300));
 //TODO: Create an instance of your Skyline object
 Skyline testSkyline = new Skyline(185, -5, (color(161, 193, 209)));
 Skyline secondSkyline = new Skyline(250, -3.5, (color(112, 138, 150)));
@@ -31,12 +31,6 @@ PImage backgroundImage;
 
 PImage characterImage;
 
-//@pjs preload must be used to preload the image
-/* @pjs preload="imageedit_1_3026764661.png" */
-
-PImage treeImage;
-
-
 
 
 // This function only runs once at the start of the program
@@ -47,8 +41,6 @@ void setup() {
   //noLoop();
   characterImage = loadImage("character.jpg");
 
-  treeImage = loadImage("imageedit_1_3026764661.png");
-
 //loop for Sprite
   for (var i = 0; i < walkman.length; i++) {
     walkman[i] = loadImage("tmp-" + i + ".gif");
@@ -58,7 +50,7 @@ void setup() {
 // called repeatedly
 void draw() {
   background(BACKGROUND_COLOR); //needed in the draw function to "clear" the screen between updates
-  //testTree.drawAndUpdate();
+  //testBuilding.drawAndUpdate();
   //TODO: Call drawSkyline on your Skyline object
   image(backgroundImage, 0, 0);
   testSun.drawSun();
@@ -69,6 +61,8 @@ void draw() {
   thirdSkyline.drawSkyline();
   secondSkyline.drawSkyline();
   testSkyline.drawSkyline();
+  fill(255, 255, 255);
+  rect (WINDOW_WIDTH/1000, WINDOW_HEIGHT - 20, screen.width + 100, 30);
   kyloRen.drawCharacter();
 
   if (keyCode == RIGHT_ARROW) {
@@ -216,30 +210,33 @@ class Cloud {
 }
 
 /**
- * Represents one layer of a city skyline, which is a collection of trees
+ * Represents one layer of a city skyline, which is a collection of buildings
  * that all move at the same speed.
  */
 class Skyline {
-  ArrayList < Tree > treeList;
+  ArrayList < Building > buildingList;
   var xPosition;
   var bw;
+  var buildingHeight;
   var speed;
+  var buildingColor;
 
 
   /**
-   * Constructs a SkyLine with enough trees to fill the screen
+   * Constructs a SkyLine with enough buildings to fill the screen
    */
-  Skyline(float s) {
-    treeList = new ArrayList < Tree > ();
+  Skyline(float bh, float s, float bC) {
+    buildingList = new ArrayList < Building > ();
     xPosition = 0;
     bw = 200;
-    treeHeight = bh;
+    buildingHeight = bh;
     speed = s;
-    fillSkyline(); //when a Skyline is created it automatically has enough trees to fill the screen
+    buildingColor = bC
+    fillSkyline(); //when a Skyline is created it automatically has enough buildings to fill the screen
   }
 
   void moveSkyline() {
-    //TODO: update and draw the skyline, add trees as trees leave the screen
+    //TODO: update and draw the skyline, add buildings as buildings leave the screen
     drawSkyline();
     updateSkyline(speed);
   }
@@ -248,26 +245,26 @@ class Skyline {
    * Draws the skyline, placing it on the screen
    */
   void drawSkyline() {
-    //TODO: loop through treeList and draw each Tree
+    //TODO: loop through buildingList and draw each Building
     stroke();
-    for (var i = 0; i < treeList.size(); i++) {
-      var randomTree = treeList.get(i);
-      randomTree.drawTree();
+    for (var i = 0; i < buildingList.size(); i++) {
+      var randomBuilding = buildingList.get(i);
+      randomBuilding.drawBuilding();
     }
 
   }
 
   /**
-   * Updates the position of each Tree in the SkyLine
+   * Updates the position of each Building in the SkyLine
    */
   void updateSkyline(var skylineSpeed) {
-    //TODO:loop through treeList and update each Tree
-    for (var i = 0; i < treeList.size(); i++) {
-      var randomTree = treeList.get(i);
-      randomTree.update(skylineSpeed);
-      if (randomTree.getX() + randomTree.getWidth() < 0) {
-        addTree();
-        treeList.remove(i);
+    //TODO:loop through buildingList and update each Building
+    for (var i = 0; i < buildingList.size(); i++) {
+      var randomBuilding = buildingList.get(i);
+      randomBuilding.update(skylineSpeed);
+      if (randomBuilding.getX() + randomBuilding.getWidth() < 0) {
+        addBuilding();
+        buildingList.remove(i);
         i--;
       }
     }
@@ -276,66 +273,73 @@ class Skyline {
   }
 
   /**
-   * Adds a tree of random tree width and then updates
-   * the x position to be the right corner of the tree in order
-   * to have the next tree not overlap
+   * Adds a building of random building width and then updates
+   * the x position to be the right corner of the building in order
+   * to have the next building not overlap
    */
-  void addTree() {
-    var randomTreeWidth = random(40, 80);
-    Tree currentTree = new Tree(xPosition);
-    treeList.add(currentTree);
-    xPosition += random(200,500);
+  void addBuilding() {
+    var randomBuildingWidth = random(40, 80);
+    Building currentBuilding = new Building(xPosition, randomBuildingWidth, buildingHeight, buildingColor);
+    buildingList.add(currentBuilding);
+    xPosition += randomBuildingWidth;
   }
 
 
   void fillSkyline() {
-    //TODO:add enough trees to fill the screen
+    //TODO:add enough buildings to fill the screen
     // hint - use xPosition and WINDOW_WIDTH to figure out when you have
-    //        enough trees
+    //        enough buildings
     while (xPosition - 500 < WINDOW_WIDTH) {
-      addTree();
+      addBuilding();
     }
   }
 }
 
 /**
- * Represents a tree, providing a way to place a tree and move
+ * Represents a building, providing a way to place a building and move
  * it across the screen.
  */
-class Tree {
+class Building {
 
-  var xPosition, yPosition;
+  var xPosition, yPosition, buildingHeight, buildingWidth;
+  var buildingColor;
 
   /**
-   * Constructs a Tree object
-   * @param xPos - the x position of the top left corner of the tree
-   * @param bw - the tree's width
+   * Constructs a Building object
+   * @param xPos - the x position of the top left corner of the building
+   * @param bw - the building's width
    */
-  Tree(var xPos) {
+  Building(var xPos,
+    var bw,
+      var bH, bC) {
+    buildingHeight = random(50, bH);
+    buildingWidth = bw;
     xPosition = xPos;
+    buildingColor = bC;
   }
 
   void drawAndUpdate() {
-    drawTree();
+    drawBuilding();
     update(5);
   }
 
   /**
-   * Draws a tree always attached to the bottom of the screen
+   * Draws a building always attached to the bottom of the screen
    */
-  void drawTree() {
-    image (treeImage, xPosition, yPosition);
-    // rect(xPosition, WINDOW_HEIGHT - treeHeight, treeWidth, treeHeight);
-    // noStroke();
-    // fill(211, 211, 211);
-    // var winY = 0
-    // for (var i = 0; i < 5; i++) {
-    //   var winX = 0
-    //   for (var j = 0; j < 4; j++) {
-    //     rect(xPosition + 10 + winX, WINDOW_HEIGHT - treeHeight + 10 + winY, treeWidth / 8, treeHeight / 7);
-    //     winX = winX + treeWidth / 6 + 1;
-    //   }
-    //   winY = winY + treeHeight / 5 + 1;
+  void drawBuilding() {
+    stroke();
+    fill(buildingColor);
+    rect(xPosition, WINDOW_HEIGHT - buildingHeight, buildingWidth, buildingHeight);
+    noStroke();
+    fill(211, 211, 211);
+    var winY = 0
+    for (var i = 0; i < 5; i++) {
+      var winX = 0
+      for (var j = 0; j < 4; j++) {
+        rect(xPosition + 10 + winX, WINDOW_HEIGHT - buildingHeight + 10 + winY, buildingWidth / 8, buildingHeight / 7);
+        winX = winX + buildingWidth / 6 + 1;
+      }
+      winY = winY + buildingHeight / 5 + 1;
 
     }
   }
@@ -345,12 +349,12 @@ class Tree {
   }
 
   int getWidth() {
-    return treeWidth;
+    return buildingWidth;
   }
 
   /**
-   * Updates the x position of the tree
-   * @param speed - the speed at which the tree updates
+   * Updates the x position of the building
+   * @param speed - the speed at which the building updates
    */
   void update(var speed) {
     xPosition += speed;
