@@ -32,6 +32,11 @@ PImage backgroundImage;
 PImage characterImage;
 
 
+//@pjs preload must be used to preload the image
+/* @pjs preload="glacier.png" */
+
+PIMage[] iceImage;
+
 
 // This function only runs once at the start of the program
 void setup() {
@@ -40,6 +45,8 @@ void setup() {
   backgroundImage = loadImage("background3.png");
   //noLoop();
   characterImage = loadImage("character.jpg");
+
+  iceImage = loadImage("glacier.png");
 
 //loop for Sprite
   for (var i = 0; i < walkman.length; i++) {
@@ -327,22 +334,9 @@ class Glacier {
    * Draws a glacier always attached to the bottom of the screen
    */
   void drawGlacier() {
-    stroke();
-    fill(glacierColor);
-    rect(xPosition, WINDOW_HEIGHT - glacierHeight, glacierWidth, glacierHeight);
-    noStroke();
-    fill(211, 211, 211);
-    var winY = 0
-    for (var i = 0; i < 5; i++) {
-      var winX = 0
-      for (var j = 0; j < 4; j++) {
-        rect(xPosition + 10 + winX, WINDOW_HEIGHT - glacierHeight + 10 + winY, glacierWidth / 8, glacierHeight / 7);
-        winX = winX + glacierWidth / 6 + 1;
-      }
-      winY = winY + glacierHeight / 5 + 1;
+    image(iceImage, 50, WINDOW_HEIGHT - 70, 100, 85);
 
     }
-  }
 
   int getX() {
     return xPosition;
