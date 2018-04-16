@@ -4,7 +4,7 @@ var WINDOW_HEIGHT = 375;
 var BACKGROUND_COLOR = color(64, 159, 232);
 var RIGHT_ARROW = '39';
 
-//Glacier testGlacier = new Glacier(0, random(10, 20), 100, color(2, 10, 300));
+//Building testBuilding = new Building(0, random(10, 20), 100, color(2, 10, 300));
 //TODO: Create an instance of your Skyline object
 Skyline testSkyline = new Skyline(185, -5, (color(161, 193, 209)));
 Skyline secondSkyline = new Skyline(250, -3.5, (color(112, 138, 150)));
@@ -31,11 +31,12 @@ PImage backgroundImage;
 
 PImage characterImage;
 
-
+PImage iceImage;
 //@pjs preload must be used to preload the image
 /* @pjs preload="glacier.png" */
 
-PIMage[] iceImage;
+
+
 
 
 // This function only runs once at the start of the program
@@ -44,10 +45,7 @@ void setup() {
   frameRate(30); //how many times the draw function is called per second
   backgroundImage = loadImage("background3.png");
   //noLoop();
-  characterImage = loadImage("character.jpg");
-
   iceImage = loadImage("glacier.png");
-
 //loop for Sprite
   for (var i = 0; i < walkman.length; i++) {
     walkman[i] = loadImage("tmp-" + i + ".gif");
@@ -57,7 +55,7 @@ void setup() {
 // called repeatedly
 void draw() {
   background(BACKGROUND_COLOR); //needed in the draw function to "clear" the screen between updates
-  //testGlacier.drawAndUpdate();
+  //testBuilding.drawAndUpdate();
   //TODO: Call drawSkyline on your Skyline object
   image(backgroundImage, 0, 0);
   testSun.drawSun();
@@ -68,8 +66,6 @@ void draw() {
   thirdSkyline.drawSkyline();
   secondSkyline.drawSkyline();
   testSkyline.drawSkyline();
-  fill(255, 255, 255);
-  rect (WINDOW_WIDTH/1000, WINDOW_HEIGHT - 20, screen.width + 100, 30);
   kyloRen.drawCharacter();
 
   if (keyCode == RIGHT_ARROW) {
