@@ -34,7 +34,7 @@ PImage characterImage;
 // This function only runs once at the start of the program
 void setup() {
   size(WINDOW_WIDTH, WINDOW_HEIGHT); //sets the size of the window
-  frameRate(30); //how many times the draw function is called per second
+  frameRate(10); //how many times the draw function is called per second
   backgroundImage = loadImage("background3.png");
   //noLoop();
 //loop for Sprite
