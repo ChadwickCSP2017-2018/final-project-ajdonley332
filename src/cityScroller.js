@@ -11,12 +11,12 @@ Cloud testCloud = new Cloud(random(75, 100), random(75, 100), 85, 35, 0.25);
 Cloud cloud2 = new Cloud(random(375, 400), random(50, 75), 85, 35, 0.25);
 Cloud cloud3 = new Cloud(random(675, 700), random(85, 110), 85, 35, 0.25);
 Cloud cloud4 = new Cloud(random(975, 1000), random(40, 65), 85, 35, 0.25);
-Character kyloRen = new Character(-3);
+Character kyloRen = new Character(-.005);
 
 //@pjs preload must be used to preload the image
-/* @pjs preload="tmp-0.gif, tmp-1.gif, tmp-2.gif, tmp-3.gif, tmp-4.gif, tmp-5.gif, tmp-6.gif, tmp-7.gif" */
+/* @pjs preload="yello0.gif, yello1.gif, yello2.gif, yello3.gif" */
 
-PImage[] walkman = new PImage[8];
+PImage[] polarbear = new PImage[4];
 
 //@pjs preload must be used to preload the image
 /* @pjs preload="background3.png" */
@@ -38,8 +38,8 @@ void setup() {
   backgroundImage = loadImage("background3.png");
   //noLoop();
 //loop for Sprite
-  for (var i = 0; i < walkman.length; i++) {
-    walkman[i] = loadImage("tmp-" + i + ".gif");
+  for (var i = 0; i < polarbear.length; i++) {
+    polarbear[i] = loadImage("yello" + i + ".gif");
   }
 }
 
@@ -97,7 +97,7 @@ class Character {
 
   void drawCharacter() {
 
-    image(walkman[imageNumber], 50, WINDOW_HEIGHT - 70, 100, 85);
+    image(polarbear[imageNumber], 50, WINDOW_HEIGHT - 100, 100, 85);
 
   }
 
@@ -113,7 +113,7 @@ class Character {
 
     imageNumber++;
 
-    if (imageNumber == walkman.length) {
+    if (imageNumber == polarbear.length) {
       imageNumber = 0;
     }
   }
