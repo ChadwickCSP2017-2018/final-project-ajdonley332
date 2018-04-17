@@ -6,9 +6,6 @@ var RIGHT_ARROW = '39';
 
 //Building testBuilding = new Building(0, random(10, 20), 100, color(2, 10, 300));
 //TODO: Create an instance of your Skyline object
-Skyline testSkyline = new Skyline(185, -5, (color(161, 193, 209)));
-Skyline secondSkyline = new Skyline(250, -3.5, (color(112, 138, 150)));
-Skyline thirdSkyline = new Skyline(300, -2, (color(55, 83, 96)));
 Sun testSun = new Sun(20, 30, 100);
 Cloud testCloud = new Cloud(random(75, 100), random(75, 100), 85, 35, 0.25);
 Cloud cloud2 = new Cloud(random(375, 400), random(50, 75), 85, 35, 0.25);
@@ -31,11 +28,6 @@ PImage backgroundImage;
 
 PImage characterImage;
 
-PImage iceImage;
-//@pjs preload must be used to preload the image
-/* @pjs preload="glacier.png" */
-
-
 
 
 
@@ -45,7 +37,6 @@ void setup() {
   frameRate(30); //how many times the draw function is called per second
   backgroundImage = loadImage("background3.png");
   //noLoop();
-  iceImage = loadImage("glacier.png");
 //loop for Sprite
   for (var i = 0; i < walkman.length; i++) {
     walkman[i] = loadImage("tmp-" + i + ".gif");
@@ -63,10 +54,10 @@ void draw() {
   cloud2.drawCloud();
   cloud3.drawCloud();
   cloud4.drawCloud();
-  thirdSkyline.drawSkyline();
-  secondSkyline.drawSkyline();
-  testSkyline.drawSkyline();
+  fill(255, 255, 255);
+  rect(0, 300 , screen.width, WINDOW_HEIGHT - 250);
   kyloRen.drawCharacter();
+
 
   if (keyCode == RIGHT_ARROW) {
     //image(backgroundImage, 0, 0);
@@ -75,9 +66,6 @@ void draw() {
     cloud2.moveCloud();
     cloud3.moveCloud();
     cloud4.moveCloud();
-    thirdSkyline.moveSkyline();
-    secondSkyline.moveSkyline();
-    testSkyline.moveSkyline();
     kyloRen.moveCharacter();
   }
 
@@ -208,146 +196,6 @@ class Cloud {
     var randomYPos = random(40, 100);
     Cloud currentCloud = new Cloud(randomXPos, randomYPos, cloudWidth, cloudHeight, cloudSpeed);
     //currentCloud.moveCloud();
-  }
-
-}
-
-/**
- * Represents one layer of a city skyline, which is a collection of glaciers
- * that all move at the same speed.
- */
-class Skyline {
-  ArrayList < Glacier > glacierList;
-  var xPosition;
-  var bw;
-  var glacierHeight;
-  var speed;
-  var glacierColor;
-
-
-  /**
-   * Constructs a SkyLine with enough glaciers to fill the screen
-   */
-  Skyline(float bh, float s, float bC) {
-    glacierList = new ArrayList < Glacier > ();
-    xPosition = 0;
-    bw = 200;
-    glacierHeight = bh;
-    speed = s;
-    glacierColor = bC
-    fillSkyline(); //when a Skyline is created it automatically has enough glaciers to fill the screen
-  }
-
-  void moveSkyline() {
-    //TODO: update and draw the skyline, add glaciers as glaciers leave the screen
-    drawSkyline();
-    updateSkyline(speed);
-  }
-
-  /**
-   * Draws the skyline, placing it on the screen
-   */
-  void drawSkyline() {
-    //TODO: loop through glacierList and draw each Glacier
-    stroke();
-    for (var i = 0; i < glacierList.size(); i++) {
-      var randomGlacier = glacierList.get(i);
-      randomGlacier.drawGlacier();
-    }
-
-  }
-
-  /**
-   * Updates the position of each Glacier in the SkyLine
-   */
-  void updateSkyline(var skylineSpeed) {
-    //TODO:loop through glacierList and update each Glacier
-    for (var i = 0; i < glacierList.size(); i++) {
-      var randomGlacier = glacierList.get(i);
-      randomGlacier.update(skylineSpeed);
-      if (randomGlacier.getX() + randomGlacier.getWidth() < 0) {
-        addGlacier();
-        glacierList.remove(i);
-        i--;
-      }
-    }
-    xPosition += skylineSpeed;
-
-  }
-
-  /**
-   * Adds a glacier of random glacier width and then updates
-   * the x position to be the right corner of the glacier in order
-   * to have the next glacier not overlap
-   */
-  void addGlacier() {
-    var randomGlacierWidth = random(40, 80);
-    Glacier currentGlacier = new Glacier(xPosition, randomGlacierWidth, glacierHeight, glacierColor);
-    glacierList.add(currentGlacier);
-    xPosition += randomGlacierWidth;
-  }
-
-
-  void fillSkyline() {
-    //TODO:add enough glaciers to fill the screen
-    // hint - use xPosition and WINDOW_WIDTH to figure out when you have
-    //        enough glaciers
-    while (xPosition - 500 < WINDOW_WIDTH) {
-      addGlacier();
-    }
-  }
-}
-
-/**
- * Represents a glacier, providing a way to place a glacier and move
- * it across the screen.
- */
-class Glacier {
-
-  var xPosition, yPosition, glacierHeight, glacierWidth;
-  var glacierColor;
-
-  /**
-   * Constructs a Glacier object
-   * @param xPos - the x position of the top left corner of the glacier
-   * @param bw - the glacier's width
-   */
-  Glacier(var xPos,
-    var bw,
-      var bH, bC) {
-    glacierHeight = random(50, bH);
-    glacierWidth = bw;
-    xPosition = xPos;
-    glacierColor = bC;
-  }
-
-  void drawAndUpdate() {
-    drawGlacier();
-    update(5);
-  }
-
-  /**
-   * Draws a glacier always attached to the bottom of the screen
-   */
-  void drawGlacier() {
-    image(iceImage, 50, WINDOW_HEIGHT - 70, 100, 85);
-
-    }
-
-  int getX() {
-    return xPosition;
-  }
-
-  int getWidth() {
-    return glacierWidth;
-  }
-
-  /**
-   * Updates the x position of the glacier
-   * @param speed - the speed at which the glacier updates
-   */
-  void update(var speed) {
-    xPosition += speed;
   }
 
 }
