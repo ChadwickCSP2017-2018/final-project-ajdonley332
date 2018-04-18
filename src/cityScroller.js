@@ -19,7 +19,7 @@ Character kyloRen = new Character(-.005);
 PImage[] polarbear = new PImage[4];
 
 //@pjs preload must be used to preload the image
-/* @pjs preload="background3.png" */
+/* @pjs preload="background4.png" */
 
 PImage backgroundImage;
 
@@ -35,7 +35,7 @@ PImage characterImage;
 void setup() {
   size(WINDOW_WIDTH, WINDOW_HEIGHT); //sets the size of the window
   frameRate(10); //how many times the draw function is called per second
-  backgroundImage = loadImage("background3.png");
+  backgroundImage = loadImage("background4.png");
   //noLoop();
 //loop for Sprite
   for (var i = 0; i < polarbear.length; i++) {
@@ -55,7 +55,7 @@ void draw() {
   cloud3.drawCloud();
   cloud4.drawCloud();
   fill(255, 255, 255);
-  rect(0, 300 , screen.width, WINDOW_HEIGHT - 250);
+  rect(0, 200, screen.width, WINDOW_HEIGHT - 20);
   kyloRen.drawCharacter();
 
 
@@ -129,7 +129,7 @@ class Sun {
     sunXPos = sXP;
     sunYPos = sYP;
     sunRadius = sR;
-    sunColor = color(255, 246, 0);
+    sunColor = color(255, 214, 94);
   }
 
   void moveSun() {
