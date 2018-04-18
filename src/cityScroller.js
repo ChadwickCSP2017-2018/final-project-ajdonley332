@@ -7,10 +7,10 @@ var RIGHT_ARROW = '39';
 //Building testBuilding = new Building(0, random(10, 20), 100, color(2, 10, 300));
 //TODO: Create an instance of your Skyline object
 Sun testSun = new Sun(20, 30, 100);
-Cloud testCloud = new Cloud(random(75, 100), random(75, 100), 85, 35, 0.25);
-Cloud cloud2 = new Cloud(random(375, 400), random(50, 75), 85, 35, 0.25);
-Cloud cloud3 = new Cloud(random(675, 700), random(85, 110), 85, 35, 0.25);
-Cloud cloud4 = new Cloud(random(975, 1000), random(40, 65), 85, 35, 0.25);
+Cloud testCloud = new Cloud(random(75, 100), random(75, 100), 85, 35, 0.45);
+Cloud cloud2 = new Cloud(random(375, 400), random(50, 75), 85, 35, 0.45);
+Cloud cloud3 = new Cloud(random(675, 700), random(85, 110), 85, 35, 0.45);
+Cloud cloud4 = new Cloud(random(975, 1000), random(40, 65), 85, 35, 0.45);
 Character kyloRen = new Character(-.005);
 
 //@pjs preload must be used to preload the image
