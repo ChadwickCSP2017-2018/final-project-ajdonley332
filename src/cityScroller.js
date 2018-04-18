@@ -2,7 +2,7 @@
 var WINDOW_WIDTH = screen.width;
 var WINDOW_HEIGHT = 375;
 var BACKGROUND_COLOR = color(64, 159, 232);
-var RIGHT_ARROW = '39';
+var SPACE_BUTTON = '32';
 
 //Building testBuilding = new Building(0, random(10, 20), 100, color(2, 10, 300));
 //TODO: Create an instance of your Skyline object
@@ -59,7 +59,7 @@ void draw() {
   kyloRen.drawCharacter();
 
 
-  if (keyCode == RIGHT_ARROW) {
+  if (keyCode == SPACE_BUTTON) {
     //image(backgroundImage, 0, 0);
     testSun.moveSun();
     testCloud.moveCloud();
@@ -67,55 +67,6 @@ void draw() {
     cloud3.moveCloud();
     cloud4.moveCloud();
     kyloRen.moveCharacter();
-  }
-
-}
-
-class Character {
-
-  var cxPosition, charSpeed, imageNumber;
-
-  Character(float cSpeed) {
-
-    this.cxPosition = WINDOW_WIDTH - 50;
-
-    this.charSpeed = cSpeed;
-
-    cyP = WINDOW_HEIGHT - 100;
-
-    imageNumber = 0;
-
-  }
-
-  void moveCharacter() {
-
-    drawCharacter();
-
-    updateCharacter();
-
-  }
-
-  void drawCharacter() {
-
-    image(polarbear[imageNumber], 50, WINDOW_HEIGHT - 100, 100, 85);
-
-  }
-
-  void updateCharacter() {
-
-    cxPosition -= charSpeed;
-
-    if (cxPosition < 0) {
-
-      cxPosition = WINDOW_WIDTH - 50;
-
-    }
-
-    imageNumber++;
-
-    if (imageNumber == polarbear.length) {
-      imageNumber = 0;
-    }
   }
 
 }
@@ -196,6 +147,55 @@ class Cloud {
     var randomYPos = random(40, 100);
     Cloud currentCloud = new Cloud(randomXPos, randomYPos, cloudWidth, cloudHeight, cloudSpeed);
     //currentCloud.moveCloud();
+  }
+
+}
+
+class Character {
+
+  var cxPosition, charSpeed, imageNumber;
+
+  Character(float cSpeed) {
+
+    this.cxPosition = WINDOW_WIDTH - 50;
+
+    this.charSpeed = cSpeed;
+
+    cyP = WINDOW_HEIGHT - 100;
+
+    imageNumber = 0;
+
+  }
+
+  void moveCharacter() {
+
+    drawCharacter();
+
+    updateCharacter();
+
+  }
+
+  void drawCharacter() {
+    image(polarbear[imageNumber], 50, WINDOW_HEIGHT - 250, 200, 150);
+
+
+  }
+
+  void updateCharacter() {
+
+    cxPosition -= charSpeed;
+
+    if (cxPosition < 0) {
+
+      cxPosition = WINDOW_WIDTH - 50;
+
+    }
+
+    imageNumber++;
+
+    if (imageNumber == polarbear.length) {
+      imageNumber = 0;
+    }
   }
 
 }
