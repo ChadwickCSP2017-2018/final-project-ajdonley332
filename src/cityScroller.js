@@ -3,6 +3,8 @@ var WINDOW_WIDTH = screen.width;
 var WINDOW_HEIGHT = 375;
 var BACKGROUND_COLOR = color(64, 159, 232);
 var SPACE_BUTTON = '32';
+var UP_BUTTON = '38';
+var DOWN_BUTTON = '40';
 
 //Building testBuilding = new Building(0, random(10, 20), 100, color(2, 10, 300));
 //TODO: Create an instance of your Skyline object
