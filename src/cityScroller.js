@@ -14,6 +14,7 @@ Cloud cloud2 = new Cloud(random(375, 400), random(50, 75), 85, 35, 0.45);
 Cloud cloud3 = new Cloud(random(675, 700), random(85, 110), 85, 35, 0.45);
 Cloud cloud4 = new Cloud(random(975, 1000), random(40, 65), 85, 35, 0.45);
 Character kyloRen = new Character(-.005);
+Seal alana = new Seal(1300);
 
 //@pjs preload must be used to preload the image
 /* @pjs preload="yello0.gif, yello1.gif, yello2.gif, yello3.gif" */
@@ -30,6 +31,10 @@ PImage backgroundImage;
 
 PImage characterImage;
 
+//@pjs preload must be used to preload the image
+/* @pjs preload="seal.png" */
+
+PImage sealImage;
 
 
 
@@ -43,6 +48,8 @@ void setup() {
   for (var i = 0; i < polarbear.length; i++) {
     polarbear[i] = loadImage("yello" + i + ".gif");
   }
+
+  sealImage = loadImage("seal.png");
 }
 
 // called repeatedly
@@ -60,7 +67,6 @@ void draw() {
   rect(0, 200, screen.width, WINDOW_HEIGHT - 20);
   kyloRen.drawCharacter();
 
-
   if (keyCode == SPACE_BUTTON) {
     //image(backgroundImage, 0, 0);
     testSun.moveSun();
@@ -69,6 +75,34 @@ void draw() {
     cloud3.moveCloud();
     cloud4.moveCloud();
     kyloRen.moveCharacter();
+    alana.moveSeal();
+  }
+
+}
+
+void keyPressed() {
+  //put keyPress code in here
+
+  if (keyCode == UP_BUTTON) {
+    testSun.moveSun();
+    testCloud.moveCloud();
+    cloud2.moveCloud();
+    cloud3.moveCloud();
+    cloud4.moveCloud();
+    kyloRen.moveCharacter();
+    kyloRen.moveUp();
+    alana.moveSeal();
+  }
+
+  if (keyCode == DOWN_BUTTON) {
+    testSun.moveSun();
+    testCloud.moveCloud();
+    cloud2.moveCloud();
+    cloud3.moveCloud();
+    cloud4.moveCloud();
+    kyloRen.moveCharacter();
+    kyloRen.moveDown();
+    alana.moveSeal();
   }
 
 }
@@ -155,7 +189,7 @@ class Cloud {
 
 class Character {
 
-  var cxPosition, charSpeed, imageNumber;
+  var cxPosition, cyPosition, charSpeed, imageNumber;
 
   Character(float cSpeed) {
 
@@ -163,7 +197,7 @@ class Character {
 
     this.charSpeed = cSpeed;
 
-    cyP = WINDOW_HEIGHT - 100;
+    this.cyPosition = WINDOW_HEIGHT - 250;
 
     imageNumber = 0;
 
@@ -178,8 +212,8 @@ class Character {
   }
 
   void drawCharacter() {
-    image(polarbear[imageNumber], 50, WINDOW_HEIGHT - 250, 200, 150);
-
+    image(polarbear[imageNumber], 50, cyPosition, 200, 150);
+    //println("Polar bear yPosition " + cyPosition);
 
   }
 
@@ -199,5 +233,60 @@ class Character {
       imageNumber = 0;
     }
   }
+
+  void moveUp() {
+    cyPosition = cyPosition - 3;
+
+    if (cyPosition < 200) {
+      cyPosition += 0;
+    }
+  }
+
+  void moveDown() {
+    cyPosition = cyPosition + 3;
+
+    if (cyPosition > 375) {
+      cyPosition += 0;
+   }
+}
+
+
+}
+
+class Seal  {
+  var cxPosition, cyPosition, charSpeed;
+
+  Seal (var cxPosition) {
+
+    this.cxPosition = cxPosition;
+
+    this.cyPosition = random(150, 300);
+
+  }
+
+  void moveSeal() {
+
+      drawSeal();
+
+      updateSeal();
+
+    }
+
+  void drawSeal() {
+      image(sealImage, cxPosition, cyPosition, 200, 150);
+      println("Seal" + cxPosition);
+      println("Seal" + cyPosition);
+    }
+
+  void updateSeal() {
+
+      cxPosition -= 3;
+
+      if (cxPosition < 0) {
+
+        cxPosition = 400;
+  }
+
+      }
 
 }
