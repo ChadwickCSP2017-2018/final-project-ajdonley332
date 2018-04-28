@@ -13,7 +13,11 @@ Cloud testCloud = new Cloud(random(75, 100), random(75, 100), 85, 35, 0.45);
 Cloud cloud2 = new Cloud(random(375, 400), random(50, 75), 85, 35, 0.45);
 Cloud cloud3 = new Cloud(random(675, 700), random(85, 110), 85, 35, 0.45);
 Cloud cloud4 = new Cloud(random(975, 1000), random(40, 65), 85, 35, 0.45);
-Character kyloRen = new Character(-.005);
+Character kyloRen = new Character(-7, 60, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
+Character reySkywalker = new Character(-7, 300, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
+Character hanSolo = new Character (-7, 500,(random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
+Character poeDameron = new Character (-7, 700, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
+Character jynErso = new Character (-7, 900, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
 
 //@pjs preload must be used to preload the image
 /* @pjs preload="yello0.gif, yello1.gif, yello2.gif, yello3.gif" */
@@ -58,6 +62,10 @@ void draw() {
   fill(255, 255, 255);
   rect(0, 200, screen.width, WINDOW_HEIGHT - 20);
   kyloRen.drawCharacter();
+  reySkywalker.drawCharacter();
+  hanSolo.drawCharacter();
+  poeDameron.drawCharacter();
+  jynErso.drawCharacter();
 
   if (keyCode == SPACE_BUTTON) {
     //image(backgroundImage, 0, 0);
@@ -67,6 +75,10 @@ void draw() {
     cloud3.moveCloud();
     cloud4.moveCloud();
     kyloRen.moveCharacter();
+    reySkywalker.moveCharacter();
+    hanSolo.moveCharacter();
+    poeDameron.moveCharacter();
+    jynErso.moveCharacter();
   }
 
 }
@@ -155,13 +167,13 @@ class Character {
 
   var cxPosition, cyPosition, charSpeed, imageNumber;
 
-  Character(float cSpeed) {
+  Character(var charSpeed, var cxPosition, var cyPosition) {
 
-    this.cxPosition = WINDOW_WIDTH - 50;
+    this.cxPosition = cxPosition;
 
-    this.charSpeed = cSpeed;
+    this.charSpeed = charSpeed;
 
-    this.cyPosition = WINDOW_HEIGHT - 250;
+    this.cyPosition = cyPosition;
 
     imageNumber = 0;
 
@@ -176,7 +188,7 @@ class Character {
   }
 
   void drawCharacter() {
-    image(polarbear[imageNumber], 50, cyPosition, 200, 150);
+    image(polarbear[imageNumber], cxPosition, cyPosition, 200, 150);
     //println("Polar bear yPosition " + cyPosition);
 
   }
@@ -185,9 +197,9 @@ class Character {
 
     cxPosition -= charSpeed;
 
-    if (cxPosition < 0) {
+    if (cxPosition > WINDOW_WIDTH) {
 
-      cxPosition = WINDOW_WIDTH - 50;
+      cxPosition = -100;
 
     }
 
@@ -199,3 +211,7 @@ class Character {
   }
 
 }
+
+// class Speech {
+//   var
+// }
