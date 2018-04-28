@@ -1,7 +1,6 @@
 //since these are variables we don't want to ever change in the code, we capitalize them
 var WINDOW_WIDTH = screen.width;
 var WINDOW_HEIGHT = 375;
-var BACKGROUND_COLOR = color(64, 159, 232);
 var SPACE_BUTTON = '32';
 var UP_BUTTON = '38';
 var DOWN_BUTTON = '40';
@@ -14,7 +13,7 @@ Cloud cloud2 = new Cloud(random(375, 400), random(50, 75), 85, 35, 0.45);
 Cloud cloud3 = new Cloud(random(675, 700), random(85, 110), 85, 35, 0.45);
 Cloud cloud4 = new Cloud(random(975, 1000), random(40, 65), 85, 35, 0.45);
 Character Kylo = new Character(-7, 60, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
-Character Wanda = new Character(-7, 300, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
+Character Diana = new Character(-7, 300, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
 Character Barry = new Character (-7, 500,(random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
 Character Bruce = new Character (-7, 700, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
 Character Iris = new Character (-7, 900, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
@@ -50,8 +49,7 @@ void setup() {
 
 // called repeatedly
 void draw() {
-  background(BACKGROUND_COLOR); //needed in the draw function to "clear" the screen between updates
-  //testBuilding.drawAndUpdate();
+
   //TODO: Call drawSkyline on your Skyline object
   image(backgroundImage, 0, 0);
   testSun.drawSun();
@@ -62,23 +60,102 @@ void draw() {
   fill(255, 255, 255);
   rect(0, 200, screen.width, WINDOW_HEIGHT - 20);
   Kylo.drawCharacter();
-  Wanda.drawCharacter();
+  Diana.drawCharacter();
   Barry.drawCharacter();
   Bruce.drawCharacter();
   Iris.drawCharacter();
 
+  font = loadFont("FFScala.ttf");
+
+  String a = "Hi, my name's Kylo.";
+
+  String b = "Hi, my name's Diana.";
+
+  String c = "Hi, my name's Barry.";
+
+  String d = "Hi, my name's Bruce.";
+
+  String e = "Hi, my name's Iris.";
+
+  String welcome = "Welcome to the Arctic Circle,";
+  String purpose = "a place for kids to come learn about polar bears";
+  String how = "and how they can help them.";
+  String space = "Press the space bar to watch the animation and learn.";
+
+  textFont(font);
+
+//Welcome to the circle code
+  fill(150,150,255);
+  ellipse(180, 100, 360, 180);
+  fill(255,255,255);
+  text(welcome, 50, 60);
+  text(purpose, 50, 85);
+  text(how, 50, 105);
+  text(space, 50, 130);
+
+//Kylo Text code
+  fill(150, 150, 150);
+
+  rect(Kylo.cxPosition - 10, Kylo.cyPosition + 50, 125, 25);
+
+  fill(255, 255, 255);
+
+  text(a, Kylo.cxPosition, Kylo.cyPosition + 65);
+
+//Diana text code
+  fill(150, 150, 150);
+
+  rect(Diana.cxPosition - 10, Diana.cyPosition + 45, 125, 25);
+
+  fill(255, 255, 255);
+
+  text(b, Diana.cxPosition, Diana.cyPosition + 60);
+
+//Barry text code
+
+  fill(150, 150, 150);
+
+  rect(Barry.cxPosition - 10, Barry.cyPosition + 45, 125, 25);
+
+  fill(255, 255, 255);
+
+  text(c, Barry.cxPosition, Barry.cyPosition + 60);
+
+//Bruce text code
+
+  fill(150, 150, 150);
+
+  rect(Bruce.cxPosition - 10, Bruce.cyPosition + 45, 125, 25);
+
+  fill(255, 255, 255);
+
+  text(d, Bruce.cxPosition, Bruce.cyPosition + 60);
+
+//Iris text code
+
+  fill(150, 150, 150);
+
+  rect(Iris.cxPosition - 10, Iris.cyPosition + 45, 125, 25);
+
+  fill(255, 255, 255);
+
+  text(e, Iris.cxPosition, Iris.cyPosition + 60);
+
   if (keyCode == SPACE_BUTTON) {
-    //image(backgroundImage, 0, 0);
     testSun.moveSun();
     testCloud.moveCloud();
     cloud2.moveCloud();
     cloud3.moveCloud();
     cloud4.moveCloud();
     Kylo.moveCharacter();
-    Wanda.moveCharacter();
+    Diana.moveCharacter();
     Barry.moveCharacter();
     Bruce.moveCharacter();
     Iris.moveCharacter();
+  }
+
+  if (frameCount % 30 == 0) {
+
   }
 
 }
@@ -109,7 +186,6 @@ class Sun {
   void updateSun() {
     sunXPos += 0.05;
     if (sunXPos - 100 > width) {
-      // sunColor = color(255,255,255);
       sunXPos = -40;
     }
   }
@@ -158,7 +234,6 @@ class Cloud {
     var randomXPos = random(75, 1000);
     var randomYPos = random(40, 100);
     Cloud currentCloud = new Cloud(randomXPos, randomYPos, cloudWidth, cloudHeight, cloudSpeed);
-    //currentCloud.moveCloud();
   }
 
 }
@@ -189,7 +264,6 @@ class Character {
 
   void drawCharacter() {
     image(polarbear[imageNumber], cxPosition, cyPosition, 200, 150);
-    //println("Polar bear yPosition " + cyPosition);
 
   }
 
@@ -211,7 +285,3 @@ class Character {
   }
 
 }
-
-// class Speech {
-//   var
-// }
