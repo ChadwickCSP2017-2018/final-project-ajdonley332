@@ -5,6 +5,14 @@ var SPACE_BUTTON = '32';
 var UP_BUTTON = '38';
 var DOWN_BUTTON = '40';
 
+String aFact = "It’s scientific name is Ursus Martimus.";
+String bFact = "The Polar Bear's main prey is the Ringed Seal.";
+String cFact = "They usually give birth in the winter and emerge from their maternity den in the spring";
+String dFact = "They can live in very low temperatures like -46 Celsius";
+String eFact = "Male polar bears can weigh from 350 kg to over 600 kg.";
+String fFact = "A polar bear’s average life span is 15 to 18 years.";
+String gFact = "Polar Bears are endangered. How can I help? https://polarbearsinternational.org/get-involved";
+
 //Building testBuilding = new Building(0, random(10, 20), 100, color(2, 10, 300));
 //TODO: Create an instance of your Skyline object
 Sun testSun = new Sun(20, 30, 100);
@@ -17,6 +25,13 @@ Character Diana = new Character(-7, 300, (random(WINDOW_HEIGHT - 175, WINDOW_HEI
 Character Barry = new Character (-7, 500,(random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
 Character Bruce = new Character (-7, 700, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
 Character Iris = new Character (-7, 900, (random(WINDOW_HEIGHT - 175, WINDOW_HEIGHT - 250)));
+Speech fact1 = new Speech (-300, 100, aFact);
+Speech fact2 = new Speech (-700, 100, bFact);
+Speech fact3 = new Speech (-1200, 100, cFact);
+Speech fact4 = new Speech (-1700, 100, dFact);
+Speech fact5 = new Speech (-2300, 100, eFact);
+Speech fact6 = new Speech (-2700, 100, fFact);
+Speech fact7 = new Speech (-3200, 100, gFact);
 
 //@pjs preload must be used to preload the image
 /* @pjs preload="yello0.gif, yello1.gif, yello2.gif, yello3.gif" */
@@ -66,15 +81,12 @@ void draw() {
   Iris.drawCharacter();
 
   font = loadFont("FFScala.ttf");
+  textFont(font);
 
   String a = "Hi, my name's Kylo.";
-
   String b = "Hi, my name's Diana.";
-
   String c = "Hi, my name's Barry.";
-
   String d = "Hi, my name's Bruce.";
-
   String e = "Hi, my name's Iris.";
 
   String welcome = "Welcome to the Arctic Circle,";
@@ -82,16 +94,24 @@ void draw() {
   String how = "and how they can help them.";
   String space = "Press the space bar to watch the animation and learn.";
 
-  textFont(font);
+var welcometextYPos = 0;
 
 //Welcome to the circle code
   fill(150,150,255);
-  ellipse(180, 100, 360, 180);
+  ellipse(180, welcometextYPos + 100, 360, 180);
   fill(255,255,255);
-  text(welcome, 50, 60);
-  text(purpose, 50, 85);
-  text(how, 50, 105);
-  text(space, 50, 130);
+  text(welcome, 50, welcometextYPos + 60);
+  text(purpose, 50, welcometextYPos + 85);
+  text(how, 50, welcometextYPos + 105);
+  text(space, 50, welcometextYPos + 130);
+
+  fact1.drawSpeech();
+  fact2.drawSpeech();
+  fact3.drawSpeech();
+  fact4.drawSpeech();
+  fact5.drawSpeech();
+  fact6.drawSpeech();
+  fact7.drawSpeech();
 
 //Kylo Text code
   fill(150, 150, 150);
@@ -152,10 +172,13 @@ void draw() {
     Barry.moveCharacter();
     Bruce.moveCharacter();
     Iris.moveCharacter();
-  }
-
-  if (frameCount % 30 == 0) {
-
+    fact1.moveSpeech();
+    fact2.moveSpeech();
+    fact3.moveSpeech();
+    fact4.moveSpeech();
+    fact5.moveSpeech();
+    fact6.moveSpeech();
+    fact7.moveSpeech();
   }
 
 }
@@ -282,6 +305,43 @@ class Character {
     if (imageNumber == polarbear.length) {
       imageNumber = 0;
     }
+  }
+
+}
+
+class Speech {
+  var speechXPos, speechYPos, speechstring;
+
+  Speech (var speechXPos, speechYPos, speechstring) {
+    this.speechXPos = speechXPos;
+
+    this.speechYPos = speechYPos;
+
+    this.speechstring = speechstring;
+  }
+
+  void drawSpeech() {
+    fill(75, 150, 150, 150);
+
+    rect(speechXPos - 10, speechYPos + 50, 350, 50);
+
+    fill(255, 255, 255);
+
+    text(speechstring, speechXPos, speechYPos + 65, 300, 400);
+  }
+
+  void updateSpeech() {
+      speechXPos += 10;
+      if (speechXPos > WINDOW_WIDTH) {
+
+        speechXPos = -2100;
+      }
+
+  }
+
+  void moveSpeech () {
+    drawSpeech();
+    updateSpeech();
   }
 
 }
